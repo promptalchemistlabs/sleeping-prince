@@ -69,7 +69,7 @@ The production landing page is registered in Zo as a public HTTP service:
 - Service label: `kingdom-of-pal`
 - Public URL: <https://kingdom-of-pal-sayyidkhan.zocomputer.io>
 - Working directory: `/home/workspace/Start/pal/sleeping-prince`
-- Entrypoint: `./scripts/serve.sh`
+- Entrypoint: `/home/workspace/Start/pal/sleeping-prince/scripts/serve.sh`
 - Local port: `4321` (Zo also provides this to the process as `PORT`)
 - Visibility: **Public**
 
@@ -89,6 +89,10 @@ The wrapper deliberately does not alter visibility; confirm the service still
 shows **Public** in Zo Hosting after any manual service edit. A Zo account that
 allows the computer to sleep requires always-on hosting for the URL to remain
 available while the computer is asleep.
+
+Use the absolute entrypoint above. Zo's supervisor does not resolve a relative
+entrypoint against the configured working directory and will otherwise fail
+before `serve.sh` can write any logs.
 
 Do not use `git submodule update --remote` in production. That bypasses the
 reviewed parent-repository pins and can combine incompatible agent revisions.
