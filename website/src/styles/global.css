@@ -249,6 +249,11 @@ h3 {
   color: var(--royal);
   font-weight: 500;
 }
+.brand-name {
+  display: inline-flex;
+  gap: 0.28em;
+  align-items: baseline;
+}
 .brand-mark {
   display: grid;
   width: 22px;
