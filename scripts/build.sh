@@ -37,14 +37,21 @@ require_command npm
 assert_repo_root
 
 [[ -f "$WEBSITE_DIR/package-lock.json" ]] || die "website/package-lock.json is missing"
+[[ -f "$REPO_ROOT/package-lock.json" ]] || die "root package-lock.json is missing"
 
 if [[ "$INSTALL_DEPENDENCIES" -eq 1 ]]; then
+  log "installing exact root dependencies"
+  (cd "$REPO_ROOT" && npm ci)
+
   log "installing exact website dependencies"
   (cd "$WEBSITE_DIR" && npm ci)
 else
   [[ -d "$WEBSITE_DIR/node_modules" ]] ||
     die "--skip-install requires website/node_modules; run without the flag first"
 fi
+
+log "testing the kingdom runtime"
+(cd "$REPO_ROOT" && npm test)
 
 log "checking formatting"
 (cd "$WEBSITE_DIR" && npm run format:check)

@@ -14,9 +14,10 @@ Run commands from the repository root.
 ./scripts/build.sh
 ```
 
-This runs `npm ci`, formatting checks, linting, Astro type checks, and the static
-production build. Use `--skip-install` only when the exact dependencies are
-already installed.
+This installs the exact root and website dependencies, runs the kingdom runtime
+tests, formatting checks, linting, Astro type checks, and the static production
+build. Use `--skip-install` only when the exact dependencies are already
+installed.
 
 ### Sync
 
