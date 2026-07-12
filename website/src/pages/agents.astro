@@ -1,89 +1,676 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import AgentCard from "../components/AgentCard.astro";
 import { agents } from "../data/site";
 ---
 
 <BaseLayout
   title="The essential agents"
-  description="Meet Orin, Scribe, Rick and Bastion, and understand the difference between mandatory core roles and removable future extensions."
+  description="Meet Orin, Scribe, Rick and Bastion: the four mandatory core roles in the pre-release Kingdom of PAL registry."
 >
-  <section class="page-hero">
-    <div class="shell">
-      <p class="eyebrow">Agent registry · Four current roles</p><h1>
-        A small team with clear ownership.
-      </h1><p class="lead">
-        Kingdom of PAL begins with four mandatory roles. Each has declared
-        capabilities, minimum permissions and hard boundaries.
-      </p>
-    </div>
-  </section>
-  <section class="section">
-    <div class="shell">
-      <div class="agent-grid">
-        {agents.map((agent) => <AgentCard agent={agent} />)}
+  <section class="roster-hero">
+    <div class="shell hero-grid">
+      <div>
+        <p class="eyebrow">Command centre · Agent registry v1alpha1</p>
+        <h1>The founder sets intent.<br />The kingdom gets to work.</h1>
+      </div>
+      <div class="hero-brief">
+        <p>
+          Four specialist agents carry out the founder’s bidding within declared
+          permissions, contracts and hard boundaries.
+        </p>
+        <div class="registry-state" aria-label="Registry summary">
+          <span><b>04</b> core roles</span>
+          <span><b>00</b> extensions</span>
+          <span><b>α</b> pre-release</span>
+        </div>
       </div>
     </div>
   </section>
-  <section class="section section-lined" aria-labelledby="core-model">
+
+  <section class="roster-section" aria-labelledby="roster-title">
     <div class="shell">
-      <p class="eyebrow">Lifecycle model</p><h2 id="core-model">
-        Roles stay. Implementations can change.
-      </h2><div class="lifecycle-grid">
-        <article class="lifecycle-card core">
-          <p class="label">Core · Mandatory</p><h3>
-            Non-removable in normal operation
-          </h3><p>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">The royal roster</p>
+          <h2 id="roster-title">Four agents. No blurred lines.</h2>
+        </div>
+        <p class="table-note" id="roster-help">
+          Registry status reflects the repository source of truth. Scroll the
+          table horizontally on small screens.
+        </p>
+      </div>
+
+      <div
+        class="table-frame"
+        tabindex="0"
+        role="region"
+        aria-labelledby="roster-title"
+        aria-describedby="roster-help"
+      >
+        <table>
+          <caption class="sr-only">
+            The four mandatory Kingdom of PAL core agents, their
+            responsibilities, boundaries and source repositories.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Agent</th>
+              <th scope="col">Mandate</th>
+              <th scope="col">Boundary</th>
+              <th scope="col">Registry</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              agents.map((agent, index) => {
+                const source = {
+                  version: "0.1.0",
+                  repository: `https://github.com/promptalchemistlabs/pal-agent-${agent.id}`,
+                };
+                return (
+                  <tr style={`--agent-accent: ${agent.accent}`}>
+                    <th scope="row">
+                      <div class="agent-identity">
+                        <div class="portrait-wrap" aria-hidden="true">
+                          <span class="portrait-monogram">
+                            {agent.monogram}
+                          </span>
+                          <span class="portrait-index">0{index + 1}</span>
+                        </div>
+                        <div>
+                          <span class="agent-code">
+                            PAL::{agent.id.toUpperCase()}
+                          </span>
+                          <strong>{agent.name}</strong>
+                          <small>{agent.role}</small>
+                        </div>
+                      </div>
+                    </th>
+                    <td>{agent.outcome}</td>
+                    <td>{agent.boundary}</td>
+                    <td>
+                      <span class="core-badge">Core · mandatory</span>
+                      <span class="enabled">
+                        <i aria-hidden="true" /> Enabled
+                      </span>
+                      <small>v{source.version} · non-removable</small>
+                    </td>
+                    <td>
+                      <a
+                        href={source.repository}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        pal-agent-{agent.id}
+                        <span class="sr-only"> (opens in a new tab)</span>
+                      </a>
+                      <small>agents/{agent.id}</small>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="cli-section" aria-labelledby="cli-title">
+    <div class="shell cli-grid">
+      <div>
+        <p class="eyebrow">Future CLI preview · Not runnable</p>
+        <h2 id="cli-title">A proposed interface, not an installer.</h2>
+        <p class="lead">
+          These commands illustrate how agent management could feel in a future
+          release. The CLI is not implemented and the commands will not work.
+        </p>
+      </div>
+      <div
+        class="terminal"
+        aria-label="Non-runnable future command-line preview"
+      >
+        <div class="terminal-bar">
+          <span>PAL COMMAND DECK</span>
+          <strong>PREVIEW ONLY</strong>
+        </div>
+        <pre><code><span class="comment"># FUTURE SYNTAX — DO NOT RUN</span>
+$ kingdom agent list
+$ kingdom agent doctor orin
+$ kingdom agent replace orin --with &lt;repository&gt;
+$ kingdom agent install &lt;extension-repository&gt;</code></pre>
+        <p>
+          <span aria-hidden="true">⚠</span> No package, installer or runnable CLI
+          is currently available.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lifecycle-section" aria-labelledby="core-model">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Lifecycle model</p>
+          <h2 id="core-model">Roles stay. Implementations can change.</h2>
+        </div>
+      </div>
+      <div class="lifecycle-grid">
+        <article>
+          <span class="model-index">01 / CORE</span>
+          <h3>Mandatory roles</h3>
+          <p>
             Community coordination, content production, security governance and
             system diagnosis must each have one enabled implementation in a
             healthy kingdom.
-          </p><p>
-            A core implementation may be upgraded or replaced only when a
-            contract-compatible alternative is ready.
           </p>
-        </article><article class="lifecycle-card extension">
-          <p class="label">Extensions · Future</p><h3>
-            Optional and removable
-          </h3><p>
-            Future specialist agents may add new capabilities without
-            redesigning the core team. They may be installed, disabled, upgraded
-            or removed.
-          </p><p>
-            Extension tooling is not implemented. The registry currently
+          <p>
+            A core implementation may be upgraded or replaced only when a
+            contract-compatible alternative is ready. It is not removable in
+            normal operation.
+          </p>
+        </article>
+        <article>
+          <span class="model-index">02 / EXTENSIONS</span>
+          <h3>Optional future specialists</h3>
+          <p>
+            Future extension agents may add capabilities without replacing the
+            core team. They are designed to be installable, disableable and
+            removable once extension tooling exists.
+          </p>
+          <p>
+            Extension tooling is future functionality. The current registry
             contains no extension agents.
           </p>
         </article>
       </div>
     </div>
   </section>
-  <section class="section">
-    <div class="shell split">
+
+  <section class="distinction-section">
+    <div class="shell distinction-grid">
       <div>
-        <p class="eyebrow">Distinct controls</p><h2>
-          Rick protects. Bastion diagnoses.
-        </h2>
-      </div><div>
-        <h3>Rick asks: is this permitted and safe?</h3><p>
-          Rick reviews permissions, privacy and policy. Rick owns security
-          decisions and cannot grant new permissions autonomously.
-        </p><h3>Bastion asks: is the system functioning correctly?</h3><p>
-          Bastion reviews health metadata, logs, integrations and memory
-          reliability. Destructive or production recovery still requires
-          approval.
-        </p>
+        <p class="eyebrow">Distinct controls</p>
+        <h2>Rick guards the gate.<br />Bastion keeps the walls standing.</h2>
+      </div>
+      <div class="control-list">
+        <article>
+          <span>R</span>
+          <div>
+            <h3>Is this permitted and safe?</h3>
+            <p>
+              Rick reviews permissions, privacy and policy. Rick cannot grant
+              new permissions autonomously.
+            </p>
+          </div>
+        </article>
+        <article>
+          <span>B</span>
+          <div>
+            <h3>Is the system functioning correctly?</h3>
+            <p>
+              Bastion diagnoses health and reliability. Destructive or
+              production recovery still requires approval.
+            </p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
-  <section class="section section-dark final-cta">
-    <div class="narrow">
-      <p class="eyebrow">See the team collaborate</p><h2>
-        One workflow. Three specialist handoffs. One founder decision.
-      </h2><div class="button-row">
-        <a class="button" href="/demo">Watch the demo</a><a
-          class="button button-secondary"
-          href="/docs">Read the architecture</a
+
+  <section class="final-cta">
+    <div class="shell final-grid">
+      <p class="eyebrow">Issue the first command</p>
+      <h2>
+        Watch the four roles move one governed campaign from intent to decision.
+      </h2>
+      <div class="button-row">
+        <a class="button" href="/demo">Watch the demo</a>
+        <a class="button button-secondary" href="/docs">Read the architecture</a
         >
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .roster-hero {
+    padding: 96px 0 84px;
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(
+        circle at 85% 20%,
+        rgba(255, 218, 139, 0.18),
+        transparent 28%
+      ),
+      linear-gradient(135deg, rgba(17, 11, 82, 0.12), transparent 60%);
+  }
+
+  .hero-grid,
+  .cli-grid,
+  .distinction-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+    gap: clamp(40px, 8vw, 120px);
+    align-items: end;
+  }
+
+  .roster-hero h1 {
+    max-width: 900px;
+    margin-bottom: 0;
+    font-size: clamp(3.5rem, 7vw, 7.25rem);
+  }
+
+  .hero-brief > p {
+    color: var(--muted);
+    font-size: 1.08rem;
+  }
+
+  .registry-state {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-block: 1px solid var(--line);
+  }
+
+  .registry-state span {
+    padding: 16px 10px;
+    font: 0.68rem/1.3 var(--mono);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .registry-state span + span {
+    border-left: 1px solid var(--line);
+  }
+  .registry-state b {
+    display: block;
+    color: var(--scribe);
+    font-size: 1.25rem;
+  }
+
+  .roster-section,
+  .lifecycle-section,
+  .distinction-section,
+  .final-cta {
+    padding: 104px 0;
+  }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    align-items: end;
+    margin-bottom: 48px;
+  }
+
+  .section-heading h2 {
+    max-width: 790px;
+    margin-bottom: 0;
+  }
+  .table-note {
+    max-width: 340px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .table-frame {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    background: rgba(17, 11, 82, 0.16);
+    scrollbar-color: var(--scribe) var(--dark);
+  }
+
+  table {
+    width: 100%;
+    min-width: 1120px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  th,
+  td {
+    padding: 26px 22px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    text-align: left;
+  }
+  thead th {
+    padding-block: 14px;
+    background: var(--dark);
+    color: var(--muted);
+    font: 0.68rem/1.3 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+  tbody tr {
+    transition: background-color 180ms ease;
+  }
+  tbody tr:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  thead th:nth-child(1) {
+    width: 25%;
+  }
+  thead th:nth-child(2) {
+    width: 20%;
+  }
+  thead th:nth-child(3) {
+    width: 23%;
+  }
+  thead th:nth-child(4) {
+    width: 17%;
+  }
+  thead th:nth-child(5) {
+    width: 15%;
+  }
+  tbody td {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .agent-identity {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  .portrait-wrap {
+    position: relative;
+    flex: 0 0 76px;
+    height: 92px;
+    overflow: hidden;
+    border: 1px solid var(--agent-accent);
+    background: var(--dark);
+  }
+  .portrait-monogram {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--agent-accent) 24%, var(--dark)),
+      var(--dark)
+    );
+    color: var(--agent-accent);
+    font: 500 3.5rem/1 var(--serif);
+  }
+  .portrait-index {
+    position: absolute;
+    right: 5px;
+    bottom: 4px;
+    padding: 1px 4px;
+    background: var(--dark);
+    color: var(--agent-accent);
+    font: 0.58rem var(--mono);
+  }
+  .agent-code {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--agent-accent);
+    font: 0.62rem var(--mono);
+    letter-spacing: 0.06em;
+  }
+  .agent-identity strong {
+    display: block;
+    font: 500 2rem/1 var(--serif);
+  }
+  .agent-identity small {
+    display: block;
+    margin-top: 8px;
+    color: var(--muted);
+    font: 0.65rem/1.4 var(--mono);
+    text-transform: uppercase;
+  }
+
+  .core-badge,
+  .enabled,
+  tbody td small {
+    display: block;
+  }
+  .core-badge {
+    width: fit-content;
+    padding: 3px 7px;
+    border: 1px solid var(--agent-accent);
+    color: var(--agent-accent);
+    font: 0.61rem var(--mono);
+    text-transform: uppercase;
+  }
+  .enabled {
+    margin-top: 15px;
+    color: var(--ink);
+    font: 0.71rem var(--mono);
+    text-transform: uppercase;
+  }
+  .enabled i {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: var(--orin);
+    box-shadow: 0 0 12px var(--orin);
+  }
+  tbody td small {
+    margin-top: 7px;
+    color: var(--muted);
+    font: 0.64rem var(--mono);
+  }
+  tbody td a {
+    color: var(--ink);
+    overflow-wrap: anywhere;
+    font: 0.73rem/1.5 var(--mono);
+  }
+
+  .cli-section {
+    padding: 104px 0;
+    border-block: 1px solid #cfc7dd;
+    background: var(--light);
+    color: #18132d;
+  }
+  .cli-grid {
+    align-items: center;
+  }
+  .cli-section .eyebrow {
+    color: #6d3f19;
+  }
+  .cli-section .lead {
+    color: #5a556b;
+  }
+  .terminal {
+    border: 1px solid #3328a8;
+    background: #110b52;
+    color: #fff8e9;
+    box-shadow: 16px 16px 0 #e8b968;
+  }
+  .terminal-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #8279ff;
+    color: #c8c7ff;
+    font: 0.64rem var(--mono);
+    letter-spacing: 0.08em;
+  }
+  .terminal-bar strong {
+    color: #ffcf75;
+  }
+  .terminal pre {
+    margin: 0;
+    padding: 28px 24px;
+    overflow-x: auto;
+    font: 0.77rem/2 var(--mono);
+  }
+  .terminal code {
+    font: inherit;
+  }
+  .terminal .comment {
+    color: #ffcf75;
+  }
+  .terminal > p {
+    margin: 0;
+    padding: 12px 16px;
+    border-top: 1px solid #8279ff;
+    color: #ffb6ad;
+    font: 0.68rem var(--mono);
+    text-transform: uppercase;
+  }
+
+  .lifecycle-section {
+    background: var(--dark);
+  }
+  .lifecycle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid var(--line);
+  }
+  .lifecycle-grid article {
+    min-height: 370px;
+    padding: clamp(32px, 5vw, 64px);
+  }
+  .lifecycle-grid article + article {
+    border-left: 1px solid var(--line);
+  }
+  .lifecycle-grid h3 {
+    margin-top: 64px;
+    font: 500 clamp(2.1rem, 4vw, 3.8rem)/1 var(--serif);
+  }
+  .lifecycle-grid p {
+    max-width: 530px;
+    color: var(--muted);
+  }
+  .model-index {
+    color: var(--scribe);
+    font: 0.72rem var(--mono);
+    letter-spacing: 0.08em;
+  }
+
+  .distinction-section {
+    border-bottom: 1px solid var(--line);
+  }
+  .distinction-grid {
+    align-items: start;
+  }
+  .control-list {
+    border-top: 1px solid var(--line);
+  }
+  .control-list article {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .control-list article > span {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid var(--ink);
+    font: 0.8rem var(--mono);
+  }
+  .control-list h3 {
+    font-family: var(--serif);
+    font-size: 1.65rem;
+  }
+  .control-list p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .final-cta {
+    background: var(--dark);
+  }
+  .final-grid {
+    display: grid;
+    grid-template-columns: 0.45fr 1.4fr auto;
+    gap: 44px;
+    align-items: end;
+  }
+  .final-grid h2 {
+    margin-bottom: 0;
+    font-size: clamp(2.5rem, 5vw, 4.6rem);
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .cli-grid,
+    .distinction-grid,
+    .final-grid {
+      grid-template-columns: 1fr;
+    }
+    .section-heading {
+      align-items: start;
+      flex-direction: column;
+    }
+    .lifecycle-grid {
+      grid-template-columns: 1fr;
+    }
+    .lifecycle-grid article + article {
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+    .final-grid {
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .roster-hero {
+      padding: 68px 0 56px;
+    }
+    .roster-hero h1 {
+      font-size: clamp(3.2rem, 15vw, 5rem);
+    }
+    .roster-section,
+    .cli-section,
+    .lifecycle-section,
+    .distinction-section,
+    .final-cta {
+      padding: 72px 0;
+    }
+    .registry-state span {
+      padding-inline: 6px;
+    }
+    .table-frame {
+      width: calc(100vw - 24px);
+    }
+    .terminal {
+      box-shadow: 8px 8px 0 #e8b968;
+    }
+    .terminal pre {
+      padding: 20px 16px;
+      font-size: 0.67rem;
+    }
+    .lifecycle-grid article {
+      min-height: auto;
+      padding: 32px 24px;
+    }
+    .lifecycle-grid h3 {
+      margin-top: 42px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    tbody tr {
+      transition: none;
+    }
+  }
+</style>
