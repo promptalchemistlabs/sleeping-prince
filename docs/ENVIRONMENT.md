@@ -35,12 +35,13 @@ through the platform rather than copying `.env` into an image.
 
 | Owner           | Variables                                                                           |
 | --------------- | ----------------------------------------------------------------------------------- |
-| All agents      | `NODE_ENV`, `LOG_LEVEL`, `OPENAI_API_KEY`, `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` |
-| Kingdom runtime | `KINGDOM_PORT`                                                                      |
-| Orin            | `ORIN_PORT`                                                                         |
-| Scribe          | `SCRIBE_PORT`                                                                       |
-| Rick            | `RICK_PORT`                                                                         |
-| Bastion         | `BASTION_PORT`                                                                      |
+| All agents      | `NODE_ENV`, `LOG_LEVEL`, `OPENAI_API_KEY`, `OPENAI_MODEL`, `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` |
+| Kingdom runtime | `KINGDOM_PORT`                                                                                      |
+| Orin            | `ORIN_PORT`, `ORIN_MODE`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`                          |
+| Scribe          | `SCRIBE_PORT`, `SCRIBE_MODE`                                                                        |
+| Rick            | `RICK_PORT`, `RICK_MODE`                                                                            |
+| Bastion         | `BASTION_PORT`, `BASTION_MODE`                                                                      |
+| Web surfaces    | `KINGDOM_PUBLIC_URL`, `PUBLIC_ORCHESTRATION_API_URL`, `TEMBUSU_SITE_URL`                           |
 
 For hackathon speed, all agents connect to the same Turso database with the same
 credentials. Agent memory is separated by table rather than by database:

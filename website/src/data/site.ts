@@ -1,4 +1,5 @@
 export const navigation = [
+  { href: "/app", label: "Control room" },
   { href: "/demo", label: "Demo" },
   { href: "/agents", label: "Agents" },
   { href: "/security", label: "Security" },

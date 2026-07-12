@@ -5,10 +5,17 @@
   "type": "module",
   "scripts": {
     "hello": "node --env-file-if-exists=.env runtime/hello-world.mjs",
-    "test": "node --test runtime/hello-world.test.mjs",
-    "test:hello": "node --test runtime/hello-world.test.mjs"
+    "start": "node --env-file-if-exists=.env runtime/src/server.mjs",
+    "test": "node --test runtime/*.test.mjs",
+    "test:hello": "node --test runtime/hello-world.test.mjs",
+    "test:orchestration": "node --test runtime/orchestration.test.mjs"
   },
   "engines": {
     "node": ">=22.9.0"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.0.8",
+    "@libsql/client": "^0.17.4",
+    "hono": "^4.12.29"
   }
 }

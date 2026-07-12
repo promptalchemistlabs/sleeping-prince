@@ -57,14 +57,17 @@ without depending on agent internals.
 .
 ├── agent-registry.yaml              # Installed agents and lifecycle rules
 ├── .env.example                     # Shared runtime configuration contract
-├── agents/                           # Future Git submodule mount points
+├── agents/                           # Four independently versioned agent submodules
 ├── approval-policies/                # Risk and human-approval rules
 ├── demo/                             # Hackathon demo instructions and fixtures
 ├── docs/                             # Product vision and presentation
 ├── founders-charter/                 # Shared direction and operating principles
 ├── memory/                           # Shared-memory conventions (not runtime data)
+├── runtime/                          # Hono orchestration API and Turso persistence
 ├── scripts/                          # Safe build, sync, redeploy and serve commands
 ├── shared-contracts/                 # Versioned JSON Schema contracts
+├── tembusu-circle/                   # Gatsby Markdown demo business
+├── website/                          # Astro landing site + React control room
 └── workflow-definitions/             # Declarative multi-agent workflows
 ```
 
@@ -109,6 +112,22 @@ curl http://127.0.0.1:4000/hello
 
 Available routes are `/health`, `/hello`, `/agents`, and
 `/agents/:id/health`.
+
+## Full hackathon demo
+
+Run the Hono orchestration API from the root:
+
+```bash
+npm start
+```
+
+Build and serve the Astro/React control room and Gatsby business site from their
+respective directories. Set `PUBLIC_ORCHESTRATION_API_URL` when the API is on a
+different origin; a reverse proxy can expose all three processes on one domain.
+
+The demo flow is Telegram or dashboard request → Orin routing → Scribe Markdown
+draft → Rick approval gate → founder approval → Gatsby write/build → Bastion
+diagnostics. See [`docs/HACKATHON_BUILD.md`](docs/HACKATHON_BUILD.md).
 
 ## Agent lifecycle
 
@@ -159,11 +178,13 @@ any recovery action affecting production or permissions before founder approval.
 
 ## Current status
 
-This repository is an early contract-first scaffold. It defines the initial
-organisation and interfaces but does not yet run agents, persist memory, deploy
-services, or provide the `kingdom` CLI.
+The hackathon vertical slice now runs all four bounded agents, persists workflow
+and per-agent memory through one Turso database, exposes an orchestration API,
+and provides the Astro/React founder control room plus the separate Gatsby demo
+business. Telegram operates through Orin when a bot token is configured and
+falls back to deterministic local/API mode otherwise.
 
-The first milestone is a thin end-to-end community campaign demonstrating:
+The implemented milestone demonstrates:
 
 1. Registry-based agent discovery
 2. Contract-compatible task handoffs

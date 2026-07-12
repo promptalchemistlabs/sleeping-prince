@@ -1,0 +1,20 @@
+---
+import "../styles/global.css";
+import "../styles/app.css";
+
+const { title, description = "Operate the Kingdom of PAL agent team." } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title} · Kingdom Control</title>
+  </head>
+  <body class="app-body"><slot /></body>
+</html>

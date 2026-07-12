@@ -24,18 +24,31 @@ npm run hello
 curl http://127.0.0.1:4000/hello
 ```
 
+## Demo business
+
+Tembusu Circle is a fictitious enablement business for people who want to start
+and operate a terrarium business. It provides workshops, practical guides,
+pricing templates, supplier guidance, and growth content. Its customer-facing
+site is the separate Gatsby application in `tembusu-circle/`; the kingdom's
+Astro/React application observes and controls the agents under `/app`.
+
 ## Primary scenario
 
 Founder request:
 
-> Create an educational campaign based on the most common questions from my community.
+> Create a blog post that teaches new terrarium founders how to price their first workshop.
 
 Expected evidence:
 
-1. Orin is discovered through the registry and identifies a recurring need.
-2. Scribe receives a contract-valid task and returns campaign content.
-3. Rick classifies the publication action and requests founder approval.
-4. The approved output and decision are written to the activity log and memory.
+1. The founder sends the request to Orin through Telegram or the dashboard.
+2. Orin creates a workflow and routes a contract-valid task to Scribe.
+3. Scribe returns a Gatsby-targeted Markdown artifact.
+4. Rick classifies the Gatsby write and build as requiring founder approval.
+5. The founder approves through the orchestration application.
+6. The Markdown file is written into `tembusu-circle/content/blog/` and Gatsby
+   rebuilds locally. Public deployment remains a separate approval boundary.
+7. The workflow, approval, artifact, and audit events remain visible in the
+   orchestration application.
 
 ## Secondary scenario
 

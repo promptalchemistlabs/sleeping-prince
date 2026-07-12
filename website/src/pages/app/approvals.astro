@@ -1,0 +1,9 @@
+---
+import OrchestrationApp from "../../app/OrchestrationApp";
+import AppLayout from "../../layouts/AppLayout.astro";
+const apiUrl = import.meta.env.PUBLIC_ORCHESTRATION_API_URL ?? "";
+---
+
+<AppLayout title="Approvals"
+  ><OrchestrationApp client:load view="approvals" {apiUrl} /></AppLayout
+>

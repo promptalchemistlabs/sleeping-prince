@@ -1,0 +1,15 @@
+---
+import OrchestrationApp from "../../../app/OrchestrationApp";
+import AppLayout from "../../../layouts/AppLayout.astro";
+const { id } = Astro.params;
+const apiUrl = import.meta.env.PUBLIC_ORCHESTRATION_API_URL ?? "";
+---
+
+<AppLayout title="Workflow detail"
+  ><OrchestrationApp
+    client:load
+    view="workflow"
+    workflowId={id}
+    {apiUrl}
+  /></AppLayout
+>

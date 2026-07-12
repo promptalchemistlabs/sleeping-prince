@@ -36,8 +36,8 @@ spec:
       source:
         repository: https://github.com/promptalchemistlabs/pal-agent-orin
         path: agents/orin
-        version: 0.1.0
-        revision: fdaad9eeb45f974c1f0f24c87ad28f4f4cd0d390
+        version: 0.2.0
+        revision: fa6788f4f023a30985cd8f179e070659a53ba83e
         manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-orin/main/agent.yaml
       capabilities:
         - community-question-analysis
@@ -68,8 +68,8 @@ spec:
       source:
         repository: https://github.com/promptalchemistlabs/pal-agent-scribe
         path: agents/scribe
-        version: 0.1.0
-        revision: e99cd0cc628fb8855866d175cece02ae55ee58cd
+        version: 0.2.0
+        revision: 6585981ac75c180e02d3e2ba0a52a1d865b17fd6
         manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-scribe/main/agent.yaml
       capabilities:
         - long-form-content
@@ -100,8 +100,8 @@ spec:
       source:
         repository: https://github.com/promptalchemistlabs/pal-agent-rick
         path: agents/rick
-        version: 0.1.0
-        revision: 8f5c14b8033e70df89444e2a30039b62e397d6b0
+        version: 0.2.0
+        revision: 4f11a2443d60392ea7a1cba7c1787348da22d023
         manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-rick/main/agent.yaml
       capabilities:
         - permission-review
@@ -135,8 +135,8 @@ spec:
       source:
         repository: https://github.com/promptalchemistlabs/pal-agent-bastion
         path: agents/bastion
-        version: 0.1.0
-        revision: c4ea8b5a96bb49339f6e9aa534e4fcab59c84079
+        version: 0.2.0
+        revision: 0b5b595c2056210e85442b9a59582d8374246ca1
         manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-bastion/main/agent.yaml
       capabilities:
         - agent-health-diagnosis
