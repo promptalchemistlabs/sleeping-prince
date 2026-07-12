@@ -42,6 +42,7 @@ import { agents } from "../data/site";
 
       <div
         class="table-frame"
+        data-motion-group
         tabindex="0"
         role="region"
         aria-labelledby="roster-title"
@@ -66,16 +67,21 @@ import { agents } from "../data/site";
               agents.map((agent, index) => {
                 const source = {
                   version: "0.1.0",
+                  name: `pal-agent-${agent.id}`,
                   repository: `https://github.com/promptalchemistlabs/pal-agent-${agent.id}`,
                 };
                 return (
-                  <tr style={`--agent-accent: ${agent.accent}`}>
+                  <tr style={`--agent-accent: ${agent.accent}; --i: ${index}`}>
                     <th scope="row">
                       <div class="agent-identity">
-                        <div class="portrait-wrap" aria-hidden="true">
-                          <span class="portrait-monogram">
-                            {agent.monogram}
-                          </span>
+                        <div class="portrait-wrap">
+                          <img
+                            src={`/agents/${agent.id}.png`}
+                            alt={`${agent.name}, ${agent.role}, depicted as a dwarf specialist`}
+                            width="120"
+                            height="144"
+                            loading="lazy"
+                          />
                           <span class="portrait-index">0{index + 1}</span>
                         </div>
                         <div>
@@ -92,7 +98,7 @@ import { agents } from "../data/site";
                     <td>
                       <span class="core-badge">Core · mandatory</span>
                       <span class="enabled">
-                        <i aria-hidden="true" /> Enabled
+                        <i aria-hidden="true" /> Declared enabled
                       </span>
                       <small>v{source.version} · non-removable</small>
                     </td>
@@ -102,7 +108,7 @@ import { agents } from "../data/site";
                         target="_blank"
                         rel="noreferrer"
                       >
-                        pal-agent-{agent.id}
+                        {source.name}
                         <span class="sr-only"> (opens in a new tab)</span>
                       </a>
                       <small>agents/{agent.id}</small>
@@ -176,7 +182,7 @@ $ kingdom agent install &lt;extension-repository&gt;</code></pre>
           <h3>Optional future specialists</h3>
           <p>
             Future extension agents may add capabilities without replacing the
-            core team. They are designed to be installable, disableable and
+            core team. They are intended to be addable, disableable and
             removable once extension tooling exists.
           </p>
           <p>
@@ -365,6 +371,16 @@ $ kingdom agent install &lt;extension-repository&gt;</code></pre>
   tbody tr:hover {
     background: rgba(255, 255, 255, 0.06);
   }
+  .table-frame.is-in-view .portrait-wrap {
+    animation: agent-arrive 650ms var(--ease-agent) calc(var(--i) * 100ms) both;
+  }
+  @media (hover: hover) {
+    tbody tr:hover .portrait-wrap img,
+    tbody tr:focus-within .portrait-wrap img {
+      filter: saturate(1.1);
+      transform: scale(1.045);
+    }
+  }
   thead th:nth-child(1) {
     width: 25%;
   }
@@ -398,18 +414,16 @@ $ kingdom agent install &lt;extension-repository&gt;</code></pre>
     border: 1px solid var(--agent-accent);
     background: var(--dark);
   }
-  .portrait-monogram {
-    display: grid;
+  .portrait-wrap img {
+    display: block;
     width: 100%;
     height: 100%;
-    place-items: center;
-    background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--agent-accent) 24%, var(--dark)),
-      var(--dark)
-    );
-    color: var(--agent-accent);
-    font: 500 3.5rem/1 var(--serif);
+    object-fit: cover;
+    object-position: center 18%;
+    filter: saturate(0.9);
+    transition:
+      transform var(--motion-mid) var(--ease-agent),
+      filter var(--motion-fast) ease;
   }
   .portrait-index {
     position: absolute;
@@ -669,7 +683,9 @@ $ kingdom agent install &lt;extension-repository&gt;</code></pre>
   }
 
   @media (prefers-reduced-motion: reduce) {
-    tbody tr {
+    tbody tr,
+    .portrait-wrap {
+      animation: none !important;
       transition: none;
     }
   }

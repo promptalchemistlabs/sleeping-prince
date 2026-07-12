@@ -4,7 +4,14 @@ const { agent } = Astro.props;
 
 <article class="agent-card" style={`--agent-accent: ${agent.accent}`}>
   <div class="agent-heading">
-    <span class="agent-glyph" aria-hidden="true">{agent.monogram}</span>
+    <img
+      class="agent-portrait"
+      src={`/agents/${agent.id}.png`}
+      alt={`${agent.name}, ${agent.role}, depicted as a dwarf specialist`}
+      width="160"
+      height="160"
+      loading="lazy"
+    />
     <div><p class="eyebrow">Core role · mandatory</p><h3>{agent.name}</h3></div>
   </div>
   <p class="agent-role">{agent.role}</p>

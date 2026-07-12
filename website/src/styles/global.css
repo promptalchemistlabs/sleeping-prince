@@ -20,6 +20,11 @@
   --mono: "DM Mono", "SFMono-Regular", Consolas, monospace;
   --radius: 0;
   --shadow: 0 24px 60px rgba(11, 6, 68, 0.28);
+  --ease-command: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-agent: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-fast: 180ms;
+  --motion-mid: 520ms;
+  --motion-slow: 900ms;
 }
 
 * {
@@ -505,16 +510,18 @@ nav a[aria-current="page"] {
   font-family: var(--serif);
   font-size: 1.8rem;
 }
-.agent-glyph {
-  display: grid;
+.agent-portrait {
+  display: block;
   flex: 0 0 auto;
-  width: 44px;
-  height: 44px;
-  place-items: center;
+  width: 76px;
+  height: 76px;
   border: 1px solid var(--agent-accent);
-  color: var(--agent-accent);
-  font-family: var(--mono);
-  font-size: 0.78rem;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: saturate(0.92);
+  transition:
+    transform var(--motion-mid) var(--ease-agent),
+    filter var(--motion-fast) ease;
 }
 .agent-role {
   color: var(--agent-accent);
@@ -559,6 +566,17 @@ nav a[aria-current="page"] {
   min-height: 280px;
   padding: 30px 22px;
   border-right: 1px solid #7770be;
+}
+.workflow-node::after {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: #fff1b9;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
 }
 .workflow-node:last-child {
   border-right: 0;
@@ -962,6 +980,102 @@ nav a[aria-current="page"] {
   border-top: 1px solid var(--line);
   background: var(--paper-deep);
 }
+
+@keyframes command-enter {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes command-stage-enter {
+  from {
+    opacity: 0;
+    transform: scale(1.025) translateY(10px);
+  }
+  to {
+    opacity: 0.92;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes agent-arrive {
+  from {
+    opacity: 0.35;
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes delegate-line {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero-copy > .eyebrow,
+.hero-copy > h1,
+.hero-copy > .lead,
+.hero-copy > .button-row,
+.hero-copy > .pre-release-note,
+.workflow-console,
+.hero-engraving {
+  animation: command-enter 700ms var(--ease-command) both;
+}
+.hero-copy > h1 {
+  animation-delay: 90ms;
+}
+.hero-copy > .lead {
+  animation-delay: 170ms;
+}
+.hero-copy > .button-row {
+  animation-delay: 250ms;
+}
+.hero-copy > .pre-release-note {
+  animation-delay: 330ms;
+}
+.workflow-console {
+  animation-delay: 380ms;
+  animation-duration: 820ms;
+}
+.hero-engraving {
+  animation-name: command-stage-enter;
+  animation-duration: 1200ms;
+}
+.agent-grid.is-in-view .agent-portrait {
+  animation: agent-arrive 650ms var(--ease-agent) both;
+}
+.agent-grid.is-in-view .agent-card:nth-child(2) .agent-portrait {
+  animation-delay: 90ms;
+}
+.agent-grid.is-in-view .agent-card:nth-child(3) .agent-portrait {
+  animation-delay: 180ms;
+}
+.agent-grid.is-in-view .agent-card:nth-child(4) .agent-portrait {
+  animation-delay: 270ms;
+}
+.workflow-track.is-in-view .workflow-node::after {
+  animation: delegate-line 620ms var(--ease-command) calc(var(--i) * 180ms) both;
+}
+
+@media (hover: hover) {
+  .agent-card:hover .agent-portrait,
+  .agent-card:focus-within .agent-portrait {
+    filter: saturate(1.12);
+    transform: translateY(-4px) scale(1.025);
+  }
+}
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1218,5 +1332,11 @@ nav a[aria-current="page"] {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+  .hero-engraving,
+  .agent-portrait,
+  .workflow-node::after {
+    clip-path: none !important;
+    transform: none !important;
   }
 }

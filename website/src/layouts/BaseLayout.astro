@@ -12,7 +12,7 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f3efe5" />
+    <meta name="theme-color" content="#291dff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title} · Kingdom of PAL</title>
   </head>
@@ -20,5 +20,24 @@ const { title, description } = Astro.props;
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+    <script>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const observer = new IntersectionObserver(
+          (entries, currentObserver) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-in-view");
+                currentObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.18 },
+        );
+
+        document
+          .querySelectorAll("[data-motion-group]")
+          .forEach((element) => observer.observe(element));
+      }
+    </script>
   </body>
 </html>

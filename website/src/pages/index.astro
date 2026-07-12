@@ -11,7 +11,7 @@ import { agents, githubUrl, workflowSteps } from "../data/site";
   <section class="hero">
     <img
       class="hero-engraving"
-      src="/kingdom-engraving.png"
+      src="/kingdom-command-stage.png"
       alt=""
       width="1536"
       height="1024"
@@ -19,12 +19,13 @@ import { agents, githubUrl, workflowSteps } from "../data/site";
     />
     <div class="shell hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Open architecture · Human governed · Pre-release</p>
-        <h1>Install the AI operating team your <em>community</em> needs.</h1>
+        <p class="eyebrow">Founder-led · Human governed · Pre-release</p>
+        <h1>
+          Your charter. Your final word. <em>Four specialists</em> at your command.
+        </h1>
         <p class="lead">
-          Orin coordinates. Scribe creates. Rick protects. Bastion keeps the
-          kingdom healthy. You remain in control of every consequential
-          decision.
+          Orin coordinates. Scribe creates. Rick protects. Bastion diagnoses.
+          The founder approves every consequential decision.
         </p>
         <div class="button-row">
           <a class="button" href="/demo"
@@ -139,15 +140,16 @@ import { agents, githubUrl, workflowSteps } from "../data/site";
       <div class="section-head">
         <div>
           <p class="eyebrow">The essential kingdom</p><h2 id="agents-heading">
-            Four roles. One accountable operating team.
+            Four specialist agents. One human authority.
           </h2>
         </div>
         <p class="lead">
-          Each specialist owns a clear job and a hard boundary. Core roles stay
-          present; their implementations can evolve.
+          The founder’s technical retinue carries out bounded work. Each agent
+          owns a clear job and a hard boundary; consequential decisions stay
+          with the human in command.
         </p>
       </div>
-      <div class="agent-grid">
+      <div class="agent-grid" data-motion-group>
         {agents.map((agent) => <AgentCard agent={agent} />)}
       </div>
       <p style="margin-top: 28px">
@@ -175,10 +177,10 @@ import { agents, githubUrl, workflowSteps } from "../data/site";
           boundary, so Rick reviews and the founder decides.
         </p>
       </div>
-      <ol class="workflow-track">
+      <ol class="workflow-track" data-motion-group>
         {
           workflowSteps.map((step, index) => (
-            <li class="workflow-node">
+            <li class="workflow-node" style={`--i: ${index}`}>
               <>
                 <span class="number">
                   0{index + 1} / {step.actor}
