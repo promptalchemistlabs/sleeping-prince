@@ -1,0 +1,154 @@
+apiVersion: kingdom.pal/v1alpha1
+kind: AgentRegistry
+
+metadata:
+  name: essential-kingdom
+  description: Source of truth for agents installed in Kingdom of PAL.
+
+spec:
+  rules:
+    coreRolesRequired: true
+    coreImplementationsReplaceable: true
+    extensionsRemovable: true
+    preserveAuditHistoryOnRemoval: true
+    archiveMemoryOnRemoval: true
+
+  coreRoles:
+    - community-coordinator
+    - content-producer
+    - security-governor
+    - system-doctor
+
+  agents:
+    - id: orin
+      displayName: Orin
+      role: community-coordinator
+      tier: core
+      enabled: true
+      removable: false
+      replacementPolicy: compatible-agent-required
+      source:
+        repository: https://github.com/promptalchemistlabs/pal-agent-orin
+        path: agents/orin
+        version: 0.1.0
+        revision: fdaad9eeb45f974c1f0f24c87ad28f4f4cd0d390
+        manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-orin/main/agent.yaml
+      capabilities:
+        - community-question-analysis
+        - context-selection
+        - workflow-routing
+        - multi-agent-coordination
+      permissions:
+        - read:community-knowledge
+        - read:shared-memory
+        - write:workflow-tasks
+        - write:shared-memory-summary
+      contracts:
+        accepts:
+          - shared-contracts/task-request.schema.json
+        returns:
+          - shared-contracts/task-result.schema.json
+      healthcheck:
+        endpoint: /health
+        required: true
+
+    - id: scribe
+      displayName: Scribe
+      role: content-producer
+      tier: core
+      enabled: true
+      removable: false
+      replacementPolicy: compatible-agent-required
+      source:
+        repository: https://github.com/promptalchemistlabs/pal-agent-scribe
+        path: agents/scribe
+        version: 0.1.0
+        revision: e99cd0cc628fb8855866d175cece02ae55ee58cd
+        manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-scribe/main/agent.yaml
+      capabilities:
+        - long-form-content
+        - content-remixing
+        - website-copy
+        - knowledge-organisation
+      permissions:
+        - read:approved-community-insights
+        - read:brand-guidelines
+        - write:content-drafts
+        - write:shared-memory-summary
+      contracts:
+        accepts:
+          - shared-contracts/task-request.schema.json
+        returns:
+          - shared-contracts/task-result.schema.json
+      healthcheck:
+        endpoint: /health
+        required: true
+
+    - id: rick
+      displayName: Rick
+      role: security-governor
+      tier: core
+      enabled: true
+      removable: false
+      replacementPolicy: compatible-agent-required
+      source:
+        repository: https://github.com/promptalchemistlabs/pal-agent-rick
+        path: agents/rick
+        version: 0.1.0
+        revision: 8f5c14b8033e70df89444e2a30039b62e397d6b0
+        manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-rick/main/agent.yaml
+      capabilities:
+        - permission-review
+        - policy-enforcement
+        - privacy-review
+        - security-audit
+      permissions:
+        - read:agent-manifests
+        - read:approval-policies
+        - read:audit-metadata
+        - write:security-decisions
+        - block:unauthorised-actions
+      contracts:
+        accepts:
+          - shared-contracts/task-request.schema.json
+          - shared-contracts/approval-request.schema.json
+        returns:
+          - shared-contracts/task-result.schema.json
+          - shared-contracts/approval-decision.schema.json
+      healthcheck:
+        endpoint: /health
+        required: true
+
+    - id: bastion
+      displayName: Bastion
+      role: system-doctor
+      tier: core
+      enabled: true
+      removable: false
+      replacementPolicy: compatible-agent-required
+      source:
+        repository: https://github.com/promptalchemistlabs/pal-agent-bastion
+        path: agents/bastion
+        version: 0.1.0
+        revision: c4ea8b5a96bb49339f6e9aa534e4fcab59c84079
+        manifest: https://raw.githubusercontent.com/promptalchemistlabs/pal-agent-bastion/main/agent.yaml
+      capabilities:
+        - agent-health-diagnosis
+        - integration-diagnosis
+        - infrastructure-diagnosis
+        - memory-health-diagnosis
+      permissions:
+        - read:health-metadata
+        - read:operational-logs
+        - write:diagnostic-reports
+        - write:recovery-recommendations
+      contracts:
+        accepts:
+          - shared-contracts/task-request.schema.json
+        returns:
+          - shared-contracts/task-result.schema.json
+      healthcheck:
+        endpoint: /health
+        required: true
+
+  extensions: []

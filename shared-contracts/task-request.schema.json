@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kingdom.pal/contracts/task-request/v1alpha1",
+  "title": "Task Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "taskId", "workflowId", "sender", "recipient", "objective", "risk"],
+  "properties": {
+    "contractVersion": { "const": "v1alpha1" },
+    "taskId": { "type": "string", "minLength": 1 },
+    "workflowId": { "type": "string", "minLength": 1 },
+    "parentTaskId": { "type": ["string", "null"] },
+    "sender": { "type": "string", "minLength": 1 },
+    "recipient": { "type": "string", "minLength": 1 },
+    "objective": { "type": "string", "minLength": 1 },
+    "inputs": { "type": "object" },
+    "contextReferences": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "risk": { "enum": ["low", "medium", "high"] },
+    "approvalId": { "type": ["string", "null"] },
+    "requestedAt": { "type": "string", "format": "date-time" }
+  }
+}

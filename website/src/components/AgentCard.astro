@@ -1,0 +1,13 @@
+---
+const { agent } = Astro.props;
+---
+
+<article class="agent-card" style={`--agent-accent: ${agent.accent}`}>
+  <div class="agent-heading">
+    <span class="agent-glyph" aria-hidden="true">{agent.monogram}</span>
+    <div><p class="eyebrow">Core role · mandatory</p><h3>{agent.name}</h3></div>
+  </div>
+  <p class="agent-role">{agent.role}</p>
+  <p>{agent.outcome}</p>
+  <p class="boundary"><strong>Boundary</strong> {agent.boundary}</p>
+</article>

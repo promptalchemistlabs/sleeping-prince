@@ -1,0 +1,187 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { workflowSteps } from "../data/site";
+---
+
+<BaseLayout
+  title="Governed community campaign demo"
+  description="Walk through a clearly labelled interactive demonstration of the Kingdom of PAL community-campaign workflow."
+>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="eyebrow">Interactive narrative · Not a live system</p>
+      <h1>Watch one community question become a governed campaign.</h1>
+      <p class="lead">
+        Follow the exact workflow defined in the repository. The demonstration
+        explains intended delegation and approval behaviour; it does not run
+        agents or publish content.
+      </p>
+      <div class="demo-banner" role="note">
+        <strong>Demonstration only</strong><span
+          >All content below is illustrative. No backend, community platform,
+          memory store or agent service is connected.</span
+        >
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="demo-heading">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Founder request</p><h2 id="demo-heading">
+            “Create an educational campaign from our most common questions.”
+          </h2>
+        </div><span class="status-chip">Demo state</span>
+      </div>
+      <div class="demo-shell" data-demo>
+        <ol class="demo-nav" aria-label="Workflow steps" role="tablist">
+          {
+            workflowSteps.map((step, index) => (
+              <li>
+                <button
+                  class="demo-step-button"
+                  type="button"
+                  role="tab"
+                  id={`step-${index}`}
+                  aria-controls="demo-panel"
+                  aria-selected={index === 0 ? "true" : "false"}
+                  data-step={index}
+                >
+                  <span>
+                    0{index + 1} · {step.actor}
+                  </span>
+                  {step.title}
+                </button>
+              </li>
+            ))
+          }
+        </ol>
+        <div
+          class="demo-panel"
+          id="demo-panel"
+          role="tabpanel"
+          aria-labelledby="step-0"
+          tabindex="0"
+        >
+          <div class="activity-meta">
+            <span data-actor>Actor / Orin</span><span data-risk
+              >Low risk · automatic</span
+            >
+          </div>
+          <h2 data-title>{workflowSteps[0].title}</h2>
+          <p class="panel-detail" data-detail>{workflowSteps[0].detail}</p>
+          <div class="record-box">
+            <span>Illustrative activity record</span><p data-record>
+              Recurring need identified: members need a practical guide for
+              evaluating AI agents safely.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="demo-controls">
+        <button
+          class="button button-secondary"
+          type="button"
+          data-previous
+          disabled>← Previous</button
+        ><button class="button" type="button" data-next>Next step →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="shell split">
+      <div>
+        <p class="eyebrow">What this proves</p><h2>
+          The handoff is the product.
+        </h2><p class="lead">
+          Specialists operate within declared roles, risk is surfaced before
+          action, and the founder retains the consequential decision.
+        </p>
+      </div>
+      <div class="code-block" aria-label="Illustrative workflow record">
+        workflow: community-campaign status: illustrative-demo steps: 5
+        approval: actor: founder required: true publication: performed: false
+        decision_record: intended: true
+      </div>
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="narrow">
+      <p class="eyebrow">Next step</p><h2>
+        Does this match your founder bottleneck?
+      </h2><p class="lead">
+        Early access is not yet connected to a form provider. The next page
+        shows the questions we plan to ask.
+      </p><div class="button-row">
+        <a class="button" href="/early-access">Join early access</a><a
+          class="button button-secondary"
+          href="/security">Explore governance</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ workflowSteps }}>
+    const records = [
+      "Recurring need identified: members need a practical guide for evaluating AI agents safely.",
+      "Draft package prepared: one educational article and two channel-specific adaptations.",
+      "Review outcome prepared: no private member information included; publication still requires founder approval.",
+      "Approval is shown as a narrative checkpoint. This demonstration cannot approve or publish anything.",
+      "Workflow summary would retain the decision, source agent and provenance for later review.",
+    ];
+    const root = document.querySelector("[data-demo]");
+    const buttons = [...document.querySelectorAll("[data-step]")];
+    const previous = document.querySelector("[data-previous]");
+    const next = document.querySelector("[data-next]");
+    let current = 0;
+
+    function showStep(index, moveFocus = false) {
+      current = Math.max(0, Math.min(index, workflowSteps.length - 1));
+      const step = workflowSteps[current];
+      buttons.forEach((button, buttonIndex) =>
+        button.setAttribute("aria-selected", String(buttonIndex === current)),
+      );
+      const active = buttons[current];
+      root.querySelector("[data-title]").textContent = step.title;
+      root.querySelector("[data-detail]").textContent = step.detail;
+      root.querySelector("[data-actor]").textContent = `Actor / ${step.actor}`;
+      root.querySelector("[data-risk]").textContent = step.risk;
+      root.querySelector("[data-record]").textContent = records[current];
+      root
+        .querySelector("#demo-panel")
+        .setAttribute("aria-labelledby", active.id);
+      previous.disabled = current === 0;
+      next.disabled = current === workflowSteps.length - 1;
+      next.textContent =
+        current === workflowSteps.length - 1 ? "Demo complete" : "Next step →";
+      if (moveFocus) active.focus();
+    }
+
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => showStep(index));
+      button.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+          event.preventDefault();
+          showStep(current + 1, true);
+        }
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+          event.preventDefault();
+          showStep(current - 1, true);
+        }
+        if (event.key === "Home") {
+          event.preventDefault();
+          showStep(0, true);
+        }
+        if (event.key === "End") {
+          event.preventDefault();
+          showStep(workflowSteps.length - 1, true);
+        }
+      });
+    });
+    previous.addEventListener("click", () => showStep(current - 1));
+    next.addEventListener("click", () => showStep(current + 1));
+  </script>
+</BaseLayout>

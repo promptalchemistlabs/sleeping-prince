@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { githubUrl } from "../data/site";
+---
+
+<BaseLayout
+  title="Early access"
+  description="Preview the planned Kingdom of PAL early-access questions and follow development on GitHub while the form remains unconfigured."
+>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="eyebrow">Pre-release research</p><h1>
+        Help shape the first governed workflow.
+      </h1><p class="lead">
+        We want to learn where community founders lose time between insight,
+        delegation, review and action.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="shell form-preview">
+      <div>
+        <p class="eyebrow">Early-access status</p><h2>
+          The form is not connected yet.
+        </h2><div class="notice" role="status">
+          <strong>Submission unavailable</strong><span
+            >No form provider or backend is configured. The preview cannot
+            submit or store your information.</span
+          >
+        </div><p style="margin-top: 26px">
+          Until a consent-aware destination is configured, follow repository
+          development or watch the demonstration.
+        </p><div class="button-row">
+          <a class="button" href="/demo">Watch the demo</a><a
+            class="button button-secondary"
+            href={githubUrl}>View on GitHub ↗</a
+          >
+        </div>
+      </div>
+      <form
+        class="preview-form"
+        aria-label="Preview of planned early-access form"
+        onsubmit="return false"
+      >
+        <p class="eyebrow">Form preview · Disabled</p>
+        <div class="field">
+          <label for="email">Email</label><input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="founder@example.com"
+            disabled
+          />
+        </div>
+        <div class="field">
+          <label for="community">Community type</label><select
+            id="community"
+            name="community"
+            disabled
+            ><option>Select one</option><option
+              >Creator or membership community</option
+            ><option>Professional network</option><option
+              >Education cohort</option
+            ><option>Open-source community</option></select
+          >
+        </div>
+        <div class="field">
+          <label for="bottleneck">Current operational bottleneck</label
+          ><textarea
+            id="bottleneck"
+            name="bottleneck"
+            placeholder="Where do handoffs or approvals slow you down?"
+            disabled></textarea>
+        </div>
+        <div class="field">
+          <label for="setup">Setup preference</label><select
+            id="setup"
+            name="setup"
+            disabled
+            ><option>Technical</option><option>Non-technical</option><option
+              >Not sure yet</option
+            ></select
+          >
+        </div>
+        <button type="submit" disabled>Submission not configured</button>
+        <p class="form-note">
+          Configuration point: connect an approved form endpoint and privacy
+          notice before enabling these fields.
+        </p>
+      </form>
+    </div>
+  </section>
+  <section class="section section-lined">
+    <div class="narrow">
+      <p class="eyebrow">What happens next</p><h2>
+        Founder learning before product breadth.
+      </h2><p class="lead">
+        The Founder's Charter prioritises one repeatable community-campaign
+        workflow. Early conversations should test the operational bottleneck,
+        approval experience and preferred setup—not inflate a feature list.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

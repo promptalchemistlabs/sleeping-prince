@@ -1,0 +1,43 @@
+apiVersion: kingdom.pal/v1alpha1
+kind: ApprovalPolicy
+
+metadata:
+  name: default-risk-policy
+
+spec:
+  levels:
+    low:
+      execution: automatic
+      actions:
+        - draft-content
+        - summarise
+        - organise-knowledge
+        - create-task-plan
+        - run-read-only-health-check
+
+    medium:
+      execution: founder-approval-required
+      securityReview: conditional
+      actions:
+        - publish-content
+        - update-website
+        - send-community-message
+        - change-workflow-configuration
+        - apply-operational-fix
+
+    high:
+      execution: founder-approval-required
+      securityReview: required
+      actions:
+        - delete-data
+        - modify-production
+        - spend-money
+        - access-credentials
+        - change-permissions
+        - share-private-information
+        - make-legal-or-financial-commitment
+
+  defaults:
+    unknownActionRisk: high
+    denyOnMissingApproval: true
+    recordDecision: true

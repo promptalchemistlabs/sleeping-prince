@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AgentCard from "../components/AgentCard.astro";
+import { agents } from "../data/site";
+---
+
+<BaseLayout
+  title="The essential agents"
+  description="Meet Orin, Scribe, Rick and Bastion, and understand the difference between mandatory core roles and removable future extensions."
+>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="eyebrow">Agent registry · Four current roles</p><h1>
+        A small team with clear ownership.
+      </h1><p class="lead">
+        Kingdom of PAL begins with four mandatory roles. Each has declared
+        capabilities, minimum permissions and hard boundaries.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="shell">
+      <div class="agent-grid">
+        {agents.map((agent) => <AgentCard agent={agent} />)}
+      </div>
+    </div>
+  </section>
+  <section class="section section-lined" aria-labelledby="core-model">
+    <div class="shell">
+      <p class="eyebrow">Lifecycle model</p><h2 id="core-model">
+        Roles stay. Implementations can change.
+      </h2><div class="lifecycle-grid">
+        <article class="lifecycle-card core">
+          <p class="label">Core · Mandatory</p><h3>
+            Non-removable in normal operation
+          </h3><p>
+            Community coordination, content production, security governance and
+            system diagnosis must each have one enabled implementation in a
+            healthy kingdom.
+          </p><p>
+            A core implementation may be upgraded or replaced only when a
+            contract-compatible alternative is ready.
+          </p>
+        </article><article class="lifecycle-card extension">
+          <p class="label">Extensions · Future</p><h3>
+            Optional and removable
+          </h3><p>
+            Future specialist agents may add new capabilities without
+            redesigning the core team. They may be installed, disabled, upgraded
+            or removed.
+          </p><p>
+            Extension tooling is not implemented. The registry currently
+            contains no extension agents.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="shell split">
+      <div>
+        <p class="eyebrow">Distinct controls</p><h2>
+          Rick protects. Bastion diagnoses.
+        </h2>
+      </div><div>
+        <h3>Rick asks: is this permitted and safe?</h3><p>
+          Rick reviews permissions, privacy and policy. Rick owns security
+          decisions and cannot grant new permissions autonomously.
+        </p><h3>Bastion asks: is the system functioning correctly?</h3><p>
+          Bastion reviews health metadata, logs, integrations and memory
+          reliability. Destructive or production recovery still requires
+          approval.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="section section-dark final-cta">
+    <div class="narrow">
+      <p class="eyebrow">See the team collaborate</p><h2>
+        One workflow. Three specialist handoffs. One founder decision.
+      </h2><div class="button-row">
+        <a class="button" href="/demo">Watch the demo</a><a
+          class="button button-secondary"
+          href="/docs">Read the architecture</a
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { githubUrl } from "../data/site";
+const raw = `${githubUrl}/blob/main`;
+---
+
+<BaseLayout
+  title="Documentation"
+  description="A source-linked introduction to the pre-release Kingdom of PAL architecture, workflow, agent registry and approval model."
+>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="eyebrow">Documentation · Pre-release</p><h1>
+        Start with the organisational layer.
+      </h1><p class="lead">
+        Kingdom of PAL is currently a contract-first scaffold. These docs
+        explain what exists in the repository and what remains future
+        functionality.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="shell content-grid">
+      <aside class="side-index" aria-label="Documentation topics">
+        <a href="#status">Current status</a><a href="#architecture"
+          >Architecture</a
+        ><a href="#workflow-definition">Campaign workflow</a><a
+          href="#contracts">Contracts</a
+        ><a href="#sources">Source files</a>
+      </aside><div class="prose">
+        <section id="status">
+          <p class="eyebrow">Read this first</p><h2>
+            There is no runnable release yet.
+          </h2><p>
+            The repository defines the organisation, registry, schemas, policies
+            and workflows. It does not yet run agents, persist memory, deploy
+            services or provide the proposed <code>kingdom</code> command-line interface.
+          </p><div class="demo-banner" role="note">
+            <strong>Future interface</strong><span
+              >Any command examples in repository materials describe a target
+              experience, not something visitors can run today.</span
+            >
+          </div>
+        </section>
+        <section id="architecture">
+          <p class="eyebrow">Architecture</p><h2>
+            Independent agents. Shared rules.
+          </h2><p>
+            The kingdom repository owns the Founder's Charter, registry, shared
+            contracts, approval policies and workflow definitions. Agent
+            implementations remain independently versioned and are intended to
+            collaborate through stable contracts rather than internal coupling.
+          </p><div class="code-block">
+            Founder request ↓ Founder's Charter + approval policy ↓ Orin selects
+            context and coordinates ↓ Scribe produces · Rick reviews · Bastion
+            diagnoses ↓ Founder approval → intended audit + memory
+          </div>
+        </section>
+        <section id="workflow-definition">
+          <p class="eyebrow">Primary workflow</p><h2>
+            Governed community campaign
+          </h2><p>
+            The workflow definition contains five explicit steps and three
+            actors: Orin, Scribe and Rick, followed by a founder checkpoint and
+            an Orin-authored summary.
+          </p><div class="code-block">
+            identify-need / Orin / low risk → create-campaign / Scribe / low
+            risk → security-review / Rick / medium risk → founder-approval /
+            Founder / medium risk → record-outcome / Orin / low risk
+          </div><p><a class="button" href="/demo">Watch the demo</a></p>
+        </section>
+        <section id="contracts">
+          <p class="eyebrow">Contract-first integration</p><h2>
+            Handoffs have schemas.
+          </h2><p>
+            Versioned JSON Schemas define task requests, task results, approval
+            requests and approval decisions. The registry declares which
+            contracts each agent accepts and returns.
+          </p><p>
+            This is architectural evidence, not proof that cross-repository
+            runtime handoffs are operational today.
+          </p>
+        </section>
+        <section id="sources">
+          <p class="eyebrow">Source of truth</p><h2>
+            Verify the model in the repository.
+          </h2><div class="source-list">
+            <a class="source-link" href={`${raw}/README.md`}
+              ><span>Product status and principles</span><code>README.md ↗</code
+              ></a
+            ><a class="source-link" href={`${raw}/agent-registry.yaml`}
+              ><span>Agents and lifecycle rules</span><code
+                >agent-registry.yaml ↗</code
+              ></a
+            ><a class="source-link" href={`${raw}/founders-charter/CHARTER.md`}
+              ><span>Mission and human authority</span><code>CHARTER.md ↗</code
+              ></a
+            ><a
+              class="source-link"
+              href={`${raw}/approval-policies/default.yaml`}
+              ><span>Risk and approval rules</span><code>default.yaml ↗</code
+              ></a
+            ><a
+              class="source-link"
+              href={`${raw}/workflow-definitions/community-campaign.yaml`}
+              ><span>Primary demonstration workflow</span><code
+                >community-campaign.yaml ↗</code
+              ></a
+            ><a
+              class="source-link"
+              href={`${raw}/shared-contracts/task-request.schema.json`}
+              ><span>Shared task contract</span><code
+                >task-request.schema.json ↗</code
+              ></a
+            >
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+  <section class="section section-dark final-cta">
+    <div class="narrow">
+      <p class="eyebrow">See it as an outcome</p><h2>
+        Architecture earns trust. The workflow earns attention.
+      </h2><div class="button-row">
+        <a class="button" href="/demo">Watch the demo</a><a
+          class="button button-secondary"
+          href={githubUrl}>View on GitHub ↗</a
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>

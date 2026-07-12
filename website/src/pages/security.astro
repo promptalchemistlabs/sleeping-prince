@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Security and governance"
+  description="See the repository-defined risk levels, approval rules, least-privilege principles and current pre-release security boundaries."
+>
+  <section class="page-hero">
+    <div class="shell">
+      <p class="eyebrow">Governance model · Repository-defined</p><h1>
+        Consequential actions remain human decisions.
+      </h1><p class="lead">
+        The current repository defines risk classification, approval rules and
+        agent boundaries. It does not yet provide a running enforcement
+        platform.
+      </p><div class="demo-banner" role="note">
+        <strong>Current status</strong><span
+          >These are defined policies and contracts, not a claim of deployed
+          security controls.</span
+        >
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="shell">
+      <p class="eyebrow">Default risk policy</p><h2>
+        Three levels. No ambiguous middle.
+      </h2><div class="risk-grid">
+        <article class="risk-card">
+          <span class="risk-index">01 / Low</span><h3>Automatic</h3><p>
+            Drafting, summarising, organising, planning and read-only diagnosis.
+          </p><ul><li>Preparation only</li><li>Reviewable result</li></ul>
+        </article><article class="risk-card">
+          <span class="risk-index">02 / Medium</span><h3>Founder approval</h3><p
+          >
+            Publishing, community messages, website or workflow changes, and
+            operational fixes.
+          </p><ul>
+            <li>Founder decision required</li><li>
+              Conditional security review
+            </li>
+          </ul>
+        </article><article class="risk-card">
+          <span class="risk-index">03 / High</span><h3>Security + founder</h3><p
+          >
+            Data deletion, production, money, credentials, permissions, private
+            information and commitments.
+          </p><ul>
+            <li>Rick review required</li><li>Explicit founder approval</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section-dark">
+    <div class="shell split">
+      <div>
+        <p class="eyebrow">Fail-closed defaults</p><h2>
+          Unknown means high risk.
+        </h2><p class="lead">
+          The policy denies actions when required approval is missing and
+          requires every decision to be recorded.
+        </p>
+      </div><div class="code-block">
+        defaults: unknownActionRisk: high denyOnMissingApproval: true
+        recordDecision: true prohibited: - expand-own-permissions -
+        expose-private-information - bypass-required-approval -
+        conceal-material-failure
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="shell content-grid">
+      <aside class="side-index" aria-label="Security topics">
+        <a href="#least-privilege">Least privilege</a><a href="#minimum-context"
+          >Minimum context</a
+        ><a href="#observability">Observability</a><a href="#limitations"
+          >Limitations</a
+        >
+      </aside><div class="prose">
+        <section id="least-privilege">
+          <h2>Least privilege</h2><p>
+            Every agent declares its required permissions. Agents must not
+            expand their own permissions, and consequential permission changes
+            require security review and founder approval.
+          </p>
+        </section><section id="minimum-context">
+          <h2>Minimum necessary context</h2><p>
+            Orin selects only the context needed for a task. Private community
+            information must not be exposed, and agents are not intended to
+            receive unrestricted access to another agent’s raw memory.
+          </p>
+        </section><section id="observability">
+          <h2>Reviewable decisions</h2><p>
+            Important workflows, security decisions, failures and approvals are
+            intended to be reviewable. Removing an extension is designed to
+            preserve audit history and archive memory provenance.
+          </p>
+        </section><section id="limitations">
+          <h2>Pre-release limitations</h2><p>
+            The repository currently defines policies, schemas and intended
+            behaviour. It does not yet run agents, enforce permissions at
+            runtime, persist audit records, host a memory broker or deploy
+            security services.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+  <section class="section section-dark final-cta">
+    <div class="narrow">
+      <p class="eyebrow">Governance in context</p><h2>
+        See where review and approval enter the workflow.
+      </h2><div class="button-row">
+        <a class="button" href="/demo">Watch the demo</a><a
+          class="button button-secondary"
+          href="/docs">Read source-linked docs</a
+        >
+      </div>
+    </div>
+  </section>
+</BaseLayout>

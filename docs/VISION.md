@@ -74,7 +74,7 @@ This allows agents to evolve independently while remaining compatible with the w
 
 ## Orin
 
-**Repository:** `zo-agent-community`
+**Repository:** `pal-agent-orin`
 
 ### Role
 
@@ -101,7 +101,7 @@ Community Steward and Kingdom Coordinator
 
 ## Scribe
 
-**Repository:** `zo-agent-web-and-blog`
+**Repository:** `pal-agent-scribe`
 
 ### Role
 
@@ -129,7 +129,7 @@ Scribe includes content remixing, so a separate social-media agent is not requir
 
 ## Rick
 
-**Repository:** `zo-agent-cybersecurity`
+**Repository:** `pal-agent-rick`
 
 ### Role
 
@@ -160,7 +160,7 @@ Rick answers:
 
 ## Bastion
 
-**Repository:** `zo-agent-doctor`
+**Repository:** `pal-agent-bastion`
 
 ### Role
 
@@ -245,7 +245,7 @@ Example registry entry:
 
 ```yaml
 name: orin
-repository: https://github.com/promptalchemistlabs/zo-agent-community
+repository: https://github.com/promptalchemistlabs/pal-agent-orin
 version: 0.1.0
 capabilities:
   - community-question-analysis
@@ -529,10 +529,10 @@ The core innovation is that independently developed agents behave like accountab
 Kingdom of PAL can evolve into an ecosystem of installable agent repositories.
 
 ```text
-kingdom install zo-agent-community
-kingdom install zo-agent-web-and-blog
-kingdom install zo-agent-cybersecurity
-kingdom install zo-agent-doctor
+kingdom install pal-agent-orin
+kingdom install pal-agent-scribe
+kingdom install pal-agent-rick
+kingdom install pal-agent-bastion
 ```
 
 Future agents can cover events, research, finance, partnerships, customer success, education, and product feedback.

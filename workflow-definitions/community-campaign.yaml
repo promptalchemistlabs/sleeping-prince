@@ -1,0 +1,39 @@
+apiVersion: kingdom.pal/v1alpha1
+kind: Workflow
+
+metadata:
+  id: community-campaign
+  name: Governed community campaign
+
+spec:
+  trigger:
+    type: founder-request
+  steps:
+    - id: identify-need
+      agent: orin
+      action: analyse-community-questions
+      risk: low
+      next: create-campaign
+
+    - id: create-campaign
+      agent: scribe
+      action: create-and-remix-content
+      risk: low
+      next: security-review
+
+    - id: security-review
+      agent: rick
+      action: review-content-and-permissions
+      risk: medium
+      next: founder-approval
+
+    - id: founder-approval
+      actor: founder
+      action: approve-publication
+      risk: medium
+      next: record-outcome
+
+    - id: record-outcome
+      agent: orin
+      action: record-workflow-summary
+      risk: low

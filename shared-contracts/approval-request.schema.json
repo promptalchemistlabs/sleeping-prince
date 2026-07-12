@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kingdom.pal/contracts/approval-request/v1alpha1",
+  "title": "Approval Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "approvalId", "taskId", "requester", "action", "risk", "reason"],
+  "properties": {
+    "contractVersion": { "const": "v1alpha1" },
+    "approvalId": { "type": "string", "minLength": 1 },
+    "taskId": { "type": "string", "minLength": 1 },
+    "requester": { "type": "string", "minLength": 1 },
+    "action": { "type": "string", "minLength": 1 },
+    "risk": { "enum": ["medium", "high"] },
+    "reason": { "type": "string", "minLength": 1 },
+    "payloadReference": { "type": ["string", "null"] },
+    "requestedAt": { "type": "string", "format": "date-time" }
+  }
+}

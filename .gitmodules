@@ -1,0 +1,12 @@
+[submodule "agents/orin"]
+	path = agents/orin
+	url = https://github.com/promptalchemistlabs/pal-agent-orin.git
+[submodule "agents/scribe"]
+	path = agents/scribe
+	url = https://github.com/promptalchemistlabs/pal-agent-scribe.git
+[submodule "agents/rick"]
+	path = agents/rick
+	url = https://github.com/promptalchemistlabs/pal-agent-rick.git
+[submodule "agents/bastion"]
+	path = agents/bastion
+	url = https://github.com/promptalchemistlabs/pal-agent-bastion.git

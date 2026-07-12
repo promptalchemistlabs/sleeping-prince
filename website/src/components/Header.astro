@@ -1,0 +1,36 @@
+---
+import { navigation } from "../data/site";
+
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="shell nav-shell">
+    <a class="brand" href="/" aria-label="Kingdom of PAL home">
+      <span class="brand-mark" aria-hidden="true"
+        ><span></span><span></span><span></span><span></span></span
+      >
+      <span>Kingdom <i>of</i> PAL</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul>
+        {
+          navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={path === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a class="button button-small button-dark nav-cta" href="/early-access"
+      >Join early access</a
+    >
+  </div>
+</header>

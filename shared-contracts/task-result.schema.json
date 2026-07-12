@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kingdom.pal/contracts/task-result/v1alpha1",
+  "title": "Task Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "taskId", "agentId", "status", "summary"],
+  "properties": {
+    "contractVersion": { "const": "v1alpha1" },
+    "taskId": { "type": "string", "minLength": 1 },
+    "agentId": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["completed", "failed", "blocked", "approval-required"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "outputs": { "type": "object" },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "reference"],
+        "properties": {
+          "type": { "type": "string" },
+          "reference": { "type": "string" }
+        }
+      }
+    },
+    "memorySummary": { "type": ["string", "null"] },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "error": { "type": ["string", "null"] }
+  }
+}

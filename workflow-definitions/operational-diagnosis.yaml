@@ -1,0 +1,33 @@
+apiVersion: kingdom.pal/v1alpha1
+kind: Workflow
+
+metadata:
+  id: operational-diagnosis
+  name: Governed operational diagnosis
+
+spec:
+  trigger:
+    type: health-check-failure
+  steps:
+    - id: diagnose
+      agent: bastion
+      action: inspect-health-metadata-and-logs
+      risk: low
+      next: recommend-recovery
+
+    - id: recommend-recovery
+      agent: bastion
+      action: prepare-recovery-recommendation
+      risk: low
+      next: security-review
+
+    - id: security-review
+      agent: rick
+      action: classify-and-review-recovery-action
+      risk: medium
+      next: founder-approval
+
+    - id: founder-approval
+      actor: founder
+      action: approve-consequential-recovery
+      risk: medium
